@@ -1,0 +1,36 @@
+# Empresas monitoradas (lista de DEMONSTRAÇÃO, troque pelas suas).
+#
+# O jeito mais fácil de adicionar é colar o link de qualquer vaga da empresa:
+#
+#   python -m vagas add https://jobs.ashbyhq.com/empresa/123
+#
+# Campos:
+#   nome     nome exibido no Discord
+#   ats      greenhouse | lever | ashby | workday | smartrecruiters | workable |
+#            teamtailor | recruitee | gupy | inhire
+#   slug     identificador da empresa no ATS (ver README para o formato de cada um)
+#   estagio  true = mostrar vagas de estágio desta empresa (padrão: false)
+#   busca    (só workday, opcional) termos de busca; sem isso lê as vagas de hoje/ontem
+#
+# Uma empresa nova é "silenciosa" na primeira execução: as vagas que ela já tem
+# são registradas sem notificar.
+
+empresas:
+  # --- Brasil / LATAM ---
+  - {nome: QuintoAndar, ats: greenhouse, slug: quintoandar, estagio: true}
+  - {nome: Wellhub, ats: greenhouse, slug: gympass}
+  - {nome: VTEX, ats: greenhouse, slug: vtex}
+  - {nome: Stone, ats: greenhouse, slug: stone, estagio: true}
+  - {nome: EBANX, ats: greenhouse, slug: ebanx}
+  - {nome: CI&T, ats: lever, slug: ciandt}
+  - {nome: Creditas, ats: gupy, slug: creditas}
+
+  # --- Globais com vagas remotas ---
+  - {nome: GitLab, ats: greenhouse, slug: gitlab}
+  - {nome: Vercel, ats: greenhouse, slug: vercel}
+  - {nome: Supabase, ats: ashby, slug: supabase}
+  - {nome: n8n, ats: ashby, slug: n8n}
+  - {nome: Linear, ats: ashby, slug: linear}
+  - {nome: Hugging Face, ats: workable, slug: huggingface}
+  - {nome: ServiceNow, ats: smartrecruiters, slug: ServiceNow}
+  - {nome: NVIDIA, ats: workday, slug: nvidia.wd5/NVIDIAExternalCareerSite}

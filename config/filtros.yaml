@@ -1,0 +1,239 @@
+# Filtros aplicados a toda vaga nova antes de notificar.
+#
+# PERFIL DE DEMONSTRAÇÃO: pessoa desenvolvedora backend/full stack, júnior ou
+# pleno, procurando vaga remota (Brasil/LATAM/global) ou híbrida/presencial na
+# Grande São Paulo. Troque pelos seus termos.
+#
+# Todos os termos são comparados sem acento, sem maiúsculas e como palavra inteira
+# ("intern" não casa com "internal"). Hífen, "/" e "_" viram espaço, então
+# "front-end", "front end" e "front/end" são equivalentes.
+
+titulo:
+  # A vaga passa se o TÍTULO contém pelo menos um destes termos.
+  incluir:
+    - software
+    - developer
+    - desenvolvedor
+    - desenvolvedora
+    - desarrollador
+    - programador
+    - programadora
+    - engineer
+    - engineering
+    - engenheiro
+    - engenheira
+    - engenharia
+    - full stack
+    - fullstack
+    - frontend
+    - front end
+    - backend
+    - back end
+    - python
+    - java
+    - node
+    - node.js
+    - typescript
+    - react
+    - golang
+    - devops
+    - sre
+    - qa
+    - sdet
+    - quality assurance
+    - test automation
+    - analista de testes
+    - dados
+    - data engineer
+    - ai
+    - ia
+    - machine learning
+
+  # Mesmo passando no "incluir", a vaga é descartada se o título tiver algum destes.
+  excluir:
+    # engenharias que não são de software
+    - mechanical
+    - mecanico
+    - mecanica
+    - electrical
+    - eletrico
+    - eletrica
+    - civil
+    - chemical
+    - quimica
+    - hardware
+    - manufacturing
+    - industrial
+    - producao
+    - manutencao
+    - maintenance
+    - construction
+    - asic
+    - physical design
+    - verification
+    - seguranca do trabalho
+    # áreas de negócio
+    - sales
+    - vendas
+    - comercial
+    - account executive
+    - account manager
+    - marketing
+    - recruiter
+    - legal
+    - juridico
+    - finance
+    - financeiro
+    - business development
+    # bicos de anotação de dados para treinar IA
+    - annotator
+    - annotation
+    - ai trainer
+
+senioridade:
+  # Níveis mostrados. "estagio" fica de fora daqui: estágio só aparece para
+  # empresas marcadas com `estagio: true` em empresas.yaml.
+  aceitar: [junior, pleno, sem_nivel]
+
+  # Como o nível é detectado no título. A ordem de checagem é:
+  # estagio → senior_forte → junior → pleno → senior → numerais → sem_nivel.
+  # Assim "Junior/Pleno" vira júnior, "Pleno/Sênior" vira pleno e
+  # "Associate Director" / "Especialista I" viram sênior (senior_forte vence
+  # o "associate" e o "I").
+  # Códigos de requisição como "JR-186652" ou "R12345" são ignorados (não é "júnior").
+  termos:
+    estagio: [intern, interns, internship, estagio, estagiario, estagiaria, pasante, pasantia, practicas, apprentice, aprendiz, jovem aprendiz, co op, working student]
+    senior_forte: [manager, director, head, principal, staff, architect, arquiteto, arquiteta, vp, chief, gerente, gerencia, diretor, diretora, coordenador, coordenadora, coordenacao, coordinator, lideranca, especialista, supervisor, distinguished, fellow]
+    junior: [junior, jr, entry level, new grad, new graduate, graduate, early career, associate, trainee]
+    pleno: [pleno, plena, pl, mid, mid level, midlevel, semi senior, semisenior, ssr, intermediate]
+    senior: [senior, sr, lead, leader, lider, expert]
+    # Numerais só valem se nenhum termo acima aparecer: "Software Engineer II"
+    # vira pleno, mas em "Empresa I Engenheiro de Dados Sênior I Remoto" o "I"
+    # é separador e quem decide é o "Sênior".
+    numerais: {i: junior, ii: pleno, iii: senior, iv: senior}
+
+localizacao:
+  # Presencial/híbrido só é aceito nestas cidades.
+  presencial_ok:
+    - sao paulo
+    - barueri
+    - osasco
+
+  # Vaga remota é aceita se mencionar algum destes...
+  remoto_ok:
+    - brazil
+    - brasil
+    - latam
+    - latin america
+    - america latina
+    - south america
+    - americas
+    - anywhere
+    - worldwide
+    - global
+
+  # ...e descartada se mencionar algum destes sem mencionar nenhum do remoto_ok.
+  remoto_bloquear:
+    - us
+    - usa
+    - united states
+    - canada
+    - uk
+    - united kingdom
+    - europe
+    - emea
+    - apac
+    - india
+    - germany
+    - france
+    - spain
+    - portugal
+    - netherlands
+    - ireland
+    - poland
+    - australia
+    - japan
+    - singapore
+    - israel
+    - argentina
+    - mexico
+    - colombia
+    - chile
+    - vietnam
+    - philippines
+    - china
+    - san francisco
+    - new york
+    - seattle
+    - austin
+    - toronto
+    - london
+    - berlin
+    - amsterdam
+    - dublin
+    - bangalore
+    - california
+    - texas
+
+  # "Remote" sem região: muitas vezes é "só EUA", mas às vezes é global de verdade.
+  aceitar_remoto_sem_regiao: true
+  # Vaga sem nenhuma informação de local.
+  aceitar_local_desconhecido: true
+
+# Portais com busca por termo (cobrem empresas que não estão em empresas.yaml).
+# Gupy: todas as empresas brasileiras que usam Gupy; 12 vagas mais recentes por termo.
+buscas_gupy:
+  - desenvolvedor
+  - desenvolvedor junior
+  - engenheiro de software
+  - backend
+  - full stack
+  - python
+
+# Get on Board: tecnologia em LATAM; 30 mais recentes por termo.
+buscas_getonbrd:
+  - backend
+  - full stack
+  - python
+
+# Remotar: vagas remotas abertas a quem está no Brasil; 50 mais recentes por termo.
+buscas_remotar:
+  - desenvolvedor
+  - backend
+  - python
+
+# Himalayas: remotas do mundo todo (só as que aceitam o Brasil ou são globais).
+buscas_himalayas:
+  - backend
+  - python
+  - junior developer
+
+execucao:
+  # Pausa longa = última execução há mais de `pausa_longa_horas`. Dois casos:
+  #
+  # 1. Madrugada (planejada): a primeira execução do dia, entre `inicio_dia` e
+  #    `inicio_dia + janela_manha_horas`, vindo de uma pausa de até
+  #    `max_pausa_noturna_horas`. Notifica tudo que surgiu à noite (até
+  #    `max_por_execucao_manha`) e lê `paginas_apos_pausa` páginas dos portais.
+  # 2. Inesperada (PC desligado, mudança...): as vagas acumuladas são
+  #    registradas SEM notificar, com um aviso no #logs.
+  #
+  # Para descartar o acumulado na mão: python -m vagas run --silencioso
+  pausa_longa_horas: 2
+  paginas_apos_pausa: 3
+  inicio_dia: 6
+  janela_manha_horas: 2
+  max_pausa_noturna_horas: 9
+  fuso_utc: -3                # horário de Brasília
+
+match:
+  alta: 75    # >= alta  → canal de alta compatibilidade (manda o CV como está)
+  media: 50   # >= media → personalizar; abaixo disso a cor fica vermelha
+
+notificacao:
+  # Limite por execução. O que passar disso fica para a próxima (não é
+  # marcado como visto), então nada se perde.
+  max_por_execucao: 40
+  max_por_execucao_manha: 100
+  # O canal #logs só é avisado quando a mesma fonte falha N execuções seguidas.
+  alertar_apos_falhas: 3

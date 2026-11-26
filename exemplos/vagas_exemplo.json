@@ -1,0 +1,61 @@
+[
+  {
+    "empresa": "Fintech Exemplo",
+    "titulo": "Desenvolvedor(a) Backend Júnior - Python",
+    "local": "Brasil",
+    "modelo": "remoto",
+    "descricao": "Sobre a vaga\nVocê vai construir APIs para o nosso produto de pagamentos.\nRequisitos\n- Python e FastAPI\n- PostgreSQL\n- Docker\n- Testes automatizados com pytest\n- Git\nDiferenciais\n- AWS\n- Redis\nBenefícios\n- Vale-refeição\n- Plano de saúde"
+  },
+  {
+    "empresa": "Varejo Digital Exemplo",
+    "titulo": "Pessoa Desenvolvedora Full Stack Pleno",
+    "local": "São Paulo, SP, Brasil",
+    "cidade": "São Paulo",
+    "modelo": "hibrido",
+    "descricao": "Você vai atuar com o nosso time de produto, que cuida da vitrine e do checkout de uma plataforma de e-commerce com milhões de pedidos por mês.\nRequisitos e qualificações\n- Node.js e TypeScript\n- React\n- Kubernetes\n- Kafka\n- GraphQL\n- Inglês avançado\nDiferenciais\n- Next.js\n- Terraform"
+  },
+  {
+    "empresa": "SaaS Global Exemplo",
+    "titulo": "Software Engineer (Remote, LATAM)",
+    "local": "Remote",
+    "modelo": "remoto",
+    "descricao": "What you'll need\n- Strong Python\n- Django or FastAPI\n- PostgreSQL\n- REST APIs\n- English\nNice to have\n- Go\n- Kubernetes\n- AWS"
+  },
+  {
+    "empresa": "Banco Exemplo",
+    "titulo": "Senior Backend Engineer",
+    "local": "Remote - Brazil",
+    "modelo": "remoto",
+    "descricao": "Requirements\n- 6+ years with Java and Spring Boot\n- Microservices\n- Kafka"
+  },
+  {
+    "empresa": "Consultoria Exemplo",
+    "titulo": "Desenvolvedor Java Júnior",
+    "local": "Rio de Janeiro, RJ, Brasil",
+    "cidade": "Rio de Janeiro",
+    "modelo": "presencial",
+    "descricao": "Requisitos\n- Java\n- Spring Boot\n- SQL"
+  },
+  {
+    "empresa": "Startup EUA Exemplo",
+    "titulo": "Junior Frontend Engineer",
+    "local": "Remote - United States",
+    "modelo": "remoto",
+    "descricao": "Requirements\n- React\n- TypeScript\n- Must be authorized to work in the US"
+  },
+  {
+    "empresa": "Indústria Exemplo",
+    "titulo": "Engenheiro Mecânico Júnior",
+    "local": "São Paulo, SP, Brasil",
+    "cidade": "São Paulo",
+    "modelo": "presencial",
+    "descricao": "Requisitos\n- AutoCAD\n- Manutenção industrial"
+  },
+  {
+    "empresa": "Agência Exemplo",
+    "titulo": "Estágio em Desenvolvimento de Software",
+    "local": "Brasil",
+    "modelo": "remoto",
+    "descricao": "Requisitos\n- HTML, CSS e JavaScript\n- React"
+  }
+]

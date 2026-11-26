@@ -1,0 +1,69 @@
+name: radar
+
+# Execução agendada pelo GitHub Actions: MONTADA, MAS DESLIGADA neste repositório
+# de demonstração. Para usar num fork:
+#   1. Cadastre os secrets DISCORD_WEBHOOK_ALTA e DISCORD_WEBHOOK_PERSONALIZAR
+#      (e opcionalmente DISCORD_WEBHOOK_LOGS) em Settings → Secrets → Actions.
+#   2. Crie a variável RADAR_ATIVO = true em Settings → Variables → Actions.
+#   3. Descomente o `schedule` abaixo.
+# Use um repositório PRIVADO: ele vai conter o seu currículo.
+# Alternativa sem GitHub Actions: scripts/instalar_tarefa.ps1 (Agendador do Windows).
+on:
+  # schedule:
+  #   - cron: "17 0-2,9-23 * * *"   # minuto 17, das 06h às 23h de Brasília (UTC-3)
+  workflow_dispatch:
+
+# Nunca duas execuções ao mesmo tempo disputando o estado.
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  radar:
+    if: vars.RADAR_ATIVO == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # O estado (vagas já vistas) mora no branch "estado", fora do main.
+      - name: Baixar estado
+        run: |
+          mkdir -p _estado
+          if git fetch --depth=1 origin estado 2>/dev/null; then
+            git show FETCH_HEAD:vistos.json > _estado/vistos.json
+            echo "estado carregado: $(wc -c < _estado/vistos.json) bytes"
+          else
+            echo "sem estado ainda: primeira execução registra as vagas sem notificar"
+          fi
+
+      - name: Rodar radar
+        env:
+          DISCORD_WEBHOOK_ALTA: ${{ secrets.DISCORD_WEBHOOK_ALTA }}
+          DISCORD_WEBHOOK_PERSONALIZAR: ${{ secrets.DISCORD_WEBHOOK_PERSONALIZAR }}
+          DISCORD_WEBHOOK_LOGS: ${{ secrets.DISCORD_WEBHOOK_LOGS }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python -m vagas run --estado _estado/vistos.json
+
+      # Um único commit sobrescrito a cada execução: o histórico não cresce.
+      - name: Salvar estado
+        if: always() && hashFiles('_estado/vistos.json') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd _estado
+          git init -q -b estado
+          git add vistos.json
+          git -c user.name="radar-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "estado $(date -u +%FT%TZ)"
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" estado
